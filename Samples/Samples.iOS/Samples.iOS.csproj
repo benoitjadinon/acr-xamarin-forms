@@ -62,13 +62,7 @@
     </CodesignProvision>
     <CodesignExtraArgs>
     </CodesignExtraArgs>
-    <MtouchProfiling>False</MtouchProfiling>
-    <MtouchFastDev>False</MtouchFastDev>
-    <MtouchEnableGenericValueTypeSharing>True</MtouchEnableGenericValueTypeSharing>
-    <MtouchUseLlvm>False</MtouchUseLlvm>
-    <MtouchUseThumb>False</MtouchUseThumb>
     <MtouchUseSGen>True</MtouchUseSGen>
-    <MtouchUseRefCounting>False</MtouchUseRefCounting>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -116,14 +110,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Acr.XamForms.BarCodeScanner.iOS\Acr.XamForms.BarCodeScanner.iOS.csproj">
-      <Project>{F1FCED90-6343-42B9-8769-5F5B1C5FE1E3}</Project>
-      <Name>Acr.XamForms.BarCodeScanner.iOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Acr.XamForms.BarCodeScanner\Acr.XamForms.BarCodeScanner.csproj">
-      <Project>{1ED7E825-98ED-4740-8DD7-96E4AA3F1128}</Project>
-      <Name>Acr.XamForms.BarCodeScanner</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Acr.XamForms.Mobile.iOS\Acr.XamForms.Mobile.iOS.csproj">
       <Project>{A2908B9C-D5D0-4715-851D-3EB81AB2E452}</Project>
       <Name>Acr.XamForms.Mobile.iOS</Name>
@@ -131,14 +117,6 @@
     <ProjectReference Include="..\..\Acr.XamForms.Mobile\Acr.XamForms.Mobile.csproj">
       <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
       <Name>Acr.XamForms.Mobile</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Acr.XamForms.SignaturePad.iOS\Acr.XamForms.SignaturePad.iOS.csproj">
-      <Project>{B12D20AA-0EDF-4903-B385-BB8090848532}</Project>
-      <Name>Acr.XamForms.SignaturePad.iOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Acr.XamForms.SignaturePad\Acr.XamForms.SignaturePad.csproj">
-      <Project>{B2AF970D-D640-451C-95AF-92AF531B8C1E}</Project>
-      <Name>Acr.XamForms.SignaturePad</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Acr.XamForms.UserDialogs.iOS\Acr.XamForms.UserDialogs.iOS.csproj">
       <Project>{290F8977-F101-4BD8-8A29-19C78B4EBC23}</Project>
@@ -163,15 +141,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
-    <Reference Include="Xamarin.Forms.Core, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Xamarin.Forms.1.3.0.6292\lib\MonoTouch10\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Forms.Platform.iOS.Classic">
       <HintPath>..\..\packages\Xamarin.Forms.1.3.0.6292\lib\MonoTouch10\Xamarin.Forms.Platform.iOS.Classic.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Forms.Xaml, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Xamarin.Forms.Core">
+      <HintPath>..\..\packages\Xamarin.Forms.1.3.0.6292\lib\MonoTouch10\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\..\packages\Xamarin.Forms.1.3.0.6292\lib\MonoTouch10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>

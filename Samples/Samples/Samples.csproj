@@ -140,17 +140,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Acr.XamForms.BarCodeScanner\Acr.XamForms.BarCodeScanner.csproj">
-      <Project>{1ED7E825-98ED-4740-8DD7-96E4AA3F1128}</Project>
-      <Name>Acr.XamForms.BarCodeScanner</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Acr.XamForms.Mobile\Acr.XamForms.Mobile.csproj">
       <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
       <Name>Acr.XamForms.Mobile</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Acr.XamForms.SignaturePad\Acr.XamForms.SignaturePad.csproj">
-      <Project>{B2AF970D-D640-451C-95AF-92AF531B8C1E}</Project>
-      <Name>Acr.XamForms.SignaturePad</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Acr.XamForms.UserDialogs\Acr.XamForms.UserDialogs.csproj">
       <Project>{FB69B463-0DD5-49D2-AFED-6E3A31EB37A1}</Project>
