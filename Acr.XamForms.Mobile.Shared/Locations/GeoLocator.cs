@@ -3,12 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Geolocation;
 
-
 namespace Acr.XamForms.Mobile.Locations {
     
     public class GeoLocator : IGeoLocator {
-        private readonly Geolocator locator;
 
+        private readonly Geolocator locator;
 
         public GeoLocator() {
 #if __ANDROID__

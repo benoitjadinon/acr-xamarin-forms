@@ -96,4 +96,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\Acr.XamForms\Acr.XamForms.csproj">
+      <Project>{85E3C63B-A17E-46EF-87CE-9A8E58FEDE4D}</Project>
+      <Name>Acr.XamForms</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
