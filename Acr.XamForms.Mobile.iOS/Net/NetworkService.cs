@@ -21,7 +21,7 @@ namespace Acr.XamForms.Mobile.iOS.Net {
         }
 
 
-        public override Task<bool> IsHostReachable(string host) {
+		public override Task<bool> IsHostReachable(string host = "google.com") {
             return Task<bool>.Run(() => Reachability.IsHostReachable(host));
         }
 

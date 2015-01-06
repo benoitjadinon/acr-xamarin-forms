@@ -6,6 +6,7 @@ using App = Android.App.Application;
 using Android.Net;
 using Java.Net;
 using Xamarin.Forms;
+using Java.Lang;
 
 
 [assembly: Dependency(typeof(NetworkService))]
@@ -30,7 +31,7 @@ namespace Acr.XamForms.Mobile.Droid.Net {
             //        x.NetworkInterfaceType == NetworkInterfaceType.Wireless80211
             //    );
 
-            if (network == null || !network.IsConnected)
+			if (network == null || !network.IsConnected)
                 this.IsConnected = false;
             else {
                 this.IsConnected = true;
@@ -42,15 +43,16 @@ namespace Acr.XamForms.Mobile.Droid.Net {
         }
 
 
-        public override Task<bool> IsHostReachable(string host) {
-            return Task<bool>.Run(() => {
-                if (!this.IsConnected)
+        public override Task<bool> IsHostReachable(string host = "google.com") {
+            return Task.Run(() => {
+				if (!this.IsConnected)
                     return false;
 
                 try {
-                    return InetAddress
-                        .GetByName(host)
-                        .IsReachable(5000);
+					//http://stackoverflow.com/questions/9922543/why-does-inetaddress-isreachable-return-false-when-i-can-ping-the-ip-address
+					Process p1 = Java.Lang.Runtime.GetRuntime().Exec(System.String.Format("ping -c 1 -w 5 {0}", host));
+					int returnVal = p1.WaitFor();
+					return (returnVal == 0);
                 }
                 catch {
                     return false;

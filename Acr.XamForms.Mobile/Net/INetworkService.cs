@@ -7,7 +7,7 @@ namespace Acr.XamForms.Mobile.Net {
 
     public interface INetworkService : INotifyPropertyChanged {
         
-        Task<bool> IsHostReachable(string host);
+		Task<bool> IsHostReachable(string host = "google.com");
         string IpAddress { get; }
         bool IsConnected { get; }
         bool IsWifi { get; }

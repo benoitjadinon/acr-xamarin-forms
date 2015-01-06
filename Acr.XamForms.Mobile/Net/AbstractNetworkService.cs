@@ -8,7 +8,7 @@ namespace Acr.XamForms.Mobile.Net {
     
     public abstract class AbstractNetworkService : INetworkService {
 
-        public abstract Task<bool> IsHostReachable(string host);
+		public abstract Task<bool> IsHostReachable(string host = "google.com");
 
         public event EventHandler StatusChanged;
         public event PropertyChangedEventHandler PropertyChanged;
