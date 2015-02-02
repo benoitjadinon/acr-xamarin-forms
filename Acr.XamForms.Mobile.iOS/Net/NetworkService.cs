@@ -1,4 +1,7 @@
 using System;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Acr.XamForms.Mobile.iOS.Net;
 using Acr.XamForms.Mobile.Net;
@@ -18,8 +21,19 @@ namespace Acr.XamForms.Mobile.iOS.Net {
         }
 
 
-        public override Task<bool> IsHostReachable(string host) {
+		public override Task<bool> IsHostReachable(string host = "google.com") {
             return Task<bool>.Run(() => Reachability.IsHostReachable(host));
+        }
+
+
+        public string GetIpAddress() {
+            return NetworkInterface
+                .GetAllNetworkInterfaces()
+                .Where(x => x.NetworkInterfaceType == NetworkInterfaceType.Ethernet || x.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
+                .SelectMany(x => x.GetIPProperties().UnicastAddresses)
+                .Where(x => x.Address.AddressFamily == AddressFamily.InterNetwork)
+                .Select(x => x.Address.ToString())
+                .FirstOrDefault();
         }
 
 

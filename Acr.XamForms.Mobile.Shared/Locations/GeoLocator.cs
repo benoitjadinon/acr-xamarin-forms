@@ -1,28 +1,22 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Geolocation;
-
 
 namespace Acr.XamForms.Mobile.Locations {
     
     public class GeoLocator : IGeoLocator {
-        private readonly Geolocator locator;
 
+        private readonly GeoLocator locator;
 
         public GeoLocator() {
-#if __ANDROID__
-            this.locator = new Geolocator(Android.App.Application.Context);
-#else      
-            this.locator = new Geolocator();
-#endif
+            this.locator = new GeoLocator();
             this.locator.PositionChanged += this.OnPositionChanged;
             this.locator.PositionError += this.OnPositionError;
         }
 
         #region Internals
 
-        private void OnPositionChanged(object sender, Xamarin.Geolocation.PositionEventArgs e) {
+        private void OnPositionChanged(object sender, PositionEventArgs e) {
             if (this.PositionChanged != null) { 
                 var pos = ToFormsPosition(e.Position);
                 this.PositionChanged(this, new PositionEventArgs(pos));
@@ -30,9 +24,9 @@ namespace Acr.XamForms.Mobile.Locations {
         }
 
 
-        private void OnPositionError(object sender, Xamarin.Geolocation.PositionErrorEventArgs e) {
+        private void OnPositionError(object sender, PositionErrorEventArgs e) {
             if (this.PositionError != null) {
-                var error = e.Error == GeolocationError.Unauthorized
+				var error = e.Error == GeoLocationError.Unauthorized
                     ? GeoLocationError.Unauthorized
                     : GeoLocationError.PositionUnavailable;
                 this.PositionError(this, new PositionErrorEventArgs(error));
@@ -40,7 +34,7 @@ namespace Acr.XamForms.Mobile.Locations {
         }
 
 
-        private static Position ToFormsPosition(Xamarin.Geolocation.Position pos) {
+        private static Position ToFormsPosition(Position pos) {
             return new Position {
                 Accuracy = pos.Accuracy,
                 Altitude = pos.Altitude,
@@ -69,7 +63,7 @@ namespace Acr.XamForms.Mobile.Locations {
 
 
         public bool IsGeoLocationAvailable {
-            get { return this.locator.IsGeolocationAvailable; }
+			get { return this.locator.IsGeoLocationAvailable; }
         }
 
 
@@ -94,7 +88,7 @@ namespace Acr.XamForms.Mobile.Locations {
                 turnBackOff = true;
                 this.StartListening(1, 10);
             }
-            var pos = await this.locator.GetPositionAsync(timeout, cancelToken, includeHeading);
+			var pos = await this.locator.GetPositionAsync(timeout, includeHeading, cancelToken);
             if (turnBackOff)
                 this.StopListening();
 

@@ -2,10 +2,13 @@ using System;
 using System.Threading.Tasks;
 using Acr.XamForms.Mobile.Droid.Net;
 using Acr.XamForms.Mobile.Net;
-using Android.App;
+using App = Android.App.Application;
 using Android.Net;
 using Java.Net;
 using Xamarin.Forms;
+using Java.Lang;
+using Android.Content;
+
 
 [assembly: Dependency(typeof(NetworkService))]
 
@@ -14,15 +17,24 @@ namespace Acr.XamForms.Mobile.Droid.Net {
     
     public class NetworkService : AbstractNetworkService {
 
-        public NetworkService() {
-            NetworkConnectionBroadcastReceiver.OnChange = this.SetFromInfo;
-            var manager = (ConnectivityManager)Forms.Context.GetSystemService(Application.ConnectivityService);
-            this.SetFromInfo(manager.ActiveNetworkInfo);
-        }
+		public NetworkService() : this (Forms.Context) {}
 
+		public NetworkService (Context context)
+		{
+			NetworkConnectionBroadcastReceiver.OnChange = this.SetFromInfo;
+			var manager = (ConnectivityManager)context.GetSystemService(App.ConnectivityService);
+			this.SetFromInfo(manager.ActiveNetworkInfo);
+		}
 
         private void SetFromInfo(NetworkInfo network) {
-            if (network == null || !network.IsConnected)
+            //var active = NetworkInterface
+            //    .GetAllNetworkInterfaces()
+            //    .FirstOrDefault(x => 
+            //        x.NetworkInterfaceType == NetworkInterfaceType.Ethernet || 
+            //        x.NetworkInterfaceType == NetworkInterfaceType.Wireless80211
+            //    );
+
+			if (network == null || !network.IsConnected)
                 this.IsConnected = false;
             else {
                 this.IsConnected = true;
@@ -34,15 +46,16 @@ namespace Acr.XamForms.Mobile.Droid.Net {
         }
 
 
-        public override Task<bool> IsHostReachable(string host) {
-            return Task<bool>.Run(() => {
-                if (!this.IsConnected)
+		public override Task<bool> IsHostReachable(string host = "google.com") {
+            return Task.Run(() => {
+				if (!this.IsConnected)
                     return false;
 
                 try {
-                    return InetAddress
-                        .GetByName(host)
-                        .IsReachable(5000);
+					//http://stackoverflow.com/questions/9922543/why-does-inetaddress-isreachable-return-false-when-i-can-ping-the-ip-address
+					Process p1 = Java.Lang.Runtime.GetRuntime().Exec(System.String.Format("ping -c 1 -w 5 {0}", host));
+					int returnVal = p1.WaitFor();
+					return (returnVal == 0);
                 }
                 catch {
                     return false;

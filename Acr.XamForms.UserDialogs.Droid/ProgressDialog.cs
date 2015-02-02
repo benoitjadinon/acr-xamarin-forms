@@ -86,7 +86,7 @@ namespace Acr.XamForms.UserDialogs.Droid {
                 return;
 
             var p = -1;
-            var txt = this.Title;
+            var txt = this.Title ?? "";
             if (this.IsDeterministic) {
                 p = this.PercentComplete;
                 if (!String.IsNullOrWhiteSpace(txt)) 

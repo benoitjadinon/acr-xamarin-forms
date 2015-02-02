@@ -83,7 +83,7 @@ namespace Acr.XamForms.UserDialogs.iOS {
             if (!this.IsShowing)
                 return;
 
-            var txt = this.Title;
+            var txt = this.Title ?? "";
             float p = -1;
             if (this.IsDeterministic) {
                 p = (float)this.PercentComplete / 100;
@@ -93,22 +93,26 @@ namespace Acr.XamForms.UserDialogs.iOS {
                 txt += this.PercentComplete + "%";
             }
 
-            if (this.cancelAction == null) {
-                BTProgressHUD.Show(
-                    this.Title,
-                    p,
-                    ProgressHUD.MaskType.Black
-                );
-            }
-            else {
-                BTProgressHUD.Show(
-                    this.cancelText, 
-                    this.cancelAction,
-                    txt,
-                    p,
-                    ProgressHUD.MaskType.Black
-                );
-            }
+			try {
+	            if (this.cancelAction == null) {
+					BTProgressHUD.Show (
+						txt,
+						p,
+						ProgressHUD.MaskType.Black
+					);
+	            }
+	            else {
+	                BTProgressHUD.Show(
+	                    this.cancelText, 
+	                    this.cancelAction,
+	                    txt,
+	                    p,
+	                    ProgressHUD.MaskType.Black
+	                );
+            	}
+			} catch (Exception ex) {
+
+			}
         }
 
         #endregion
