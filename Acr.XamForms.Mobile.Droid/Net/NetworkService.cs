@@ -7,6 +7,7 @@ using Android.Net;
 using Java.Net;
 using Xamarin.Forms;
 using Java.Lang;
+using Android.Content;
 
 
 [assembly: Dependency(typeof(NetworkService))]
@@ -16,12 +17,14 @@ namespace Acr.XamForms.Mobile.Droid.Net {
     
     public class NetworkService : AbstractNetworkService {
 
-        public NetworkService() {
-            NetworkConnectionBroadcastReceiver.OnChange = this.SetFromInfo;
-            var manager = (ConnectivityManager)Forms.Context.GetSystemService(App.ConnectivityService);
-            this.SetFromInfo(manager.ActiveNetworkInfo);
-        }
+		public NetworkService() : this (Forms.Context) {}
 
+		public NetworkService (Context context)
+		{
+			NetworkConnectionBroadcastReceiver.OnChange = this.SetFromInfo;
+			var manager = (ConnectivityManager)context.GetSystemService(App.ConnectivityService);
+			this.SetFromInfo(manager.ActiveNetworkInfo);
+		}
 
         private void SetFromInfo(NetworkInfo network) {
             //var active = NetworkInterface
@@ -43,7 +46,7 @@ namespace Acr.XamForms.Mobile.Droid.Net {
         }
 
 
-        public override Task<bool> IsHostReachable(string host = "google.com") {
+		public override Task<bool> IsHostReachable(string host = "google.com") {
             return Task.Run(() => {
 				if (!this.IsConnected)
                     return false;
